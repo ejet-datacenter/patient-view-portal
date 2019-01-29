@@ -1,40 +1,17 @@
 <template>
   <div class="content" v-loading="loading">
     <el-container class="content">
-      <el-header style="height:420px;padding:0">
+      <el-header style="height:40px;padding:0">
         <div class="search">
           <i class="el-icon-zoom-in" style="font-size: 24px;color:#fff;vertical-align: middle;"></i>
           <span style="font-size: 16px;color: #fff;">患者检索</span>
           <div v-on:click.prev.stop="searchShow=true" style="display: inline-block;">
-            <el-input v-model="form.queryKeywords" placeholder="姓名/住院号/门诊号/床位号" clearable size="small" v-on:input="querytable"></el-input>
+            <el-input v-model="form.queryKeywords" placeholder="姓名/住院号/门诊号/床位号" clearable size="small"
+                      v-on:input="querytable"></el-input>
           </div>
         </div>
         <div class="head">患者基本信息</div>
-        <div class="baseInfo">
-          <div class="img">
-            <i class="fa fa-user"></i>
-            <img src="" alt="">
-          </div>
-          <div class="info">
-            <p>
-              <span>姓名:{{baseInfo.name}}</span>
-              <span>生日:{{baseInfo.birthday}}</span>
-              <span>性别:{{baseInfo.sexName}}</span>
-              <span>年龄:{{baseInfo.age}}</span>
-              <span>婚姻:{{baseInfo.marriageStateName}}</span>
-              <span>名族:{{baseInfo.nationName}}</span>
-            </p>
-            <p style="font-size: 12px;">
-              <span>医保类型:{{baseInfo.marriageStateName}}</span>
-              <span>身份证:{{baseInfo.idCard}}</span>
-              <span><i class="fa fa-phone-square"></i> 电话:{{baseInfo.phone}}</span>
-              <span><i class="fa fa-address-book"></i> 住址:{{baseInfo.addrProvince}}{{baseInfo.addrCity}}{{baseInfo.addrArea}}{{baseInfo.addrArea}}{{baseInfo.countryName}}</span>
-            </p>
-          </div>
-        </div>
-        <div class="timeAxis">
-          <timeAxis :list="empiList"></timeAxis>
-        </div>
+
       </el-header>
 
 
@@ -44,7 +21,7 @@
           <el-menu>
             <el-submenu index="0">
               <template slot="title">
-                <i class="fa fa-file-text-o b19BE6B"></i>
+                <i class="fa fa-file-text-o b409EFF"></i>
                 <span>电子病历</span>
               </template>
               <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
@@ -53,7 +30,7 @@
             </el-submenu>
             <el-submenu index="1">
               <template slot="title">
-                <i class="fa fa-picture-o b19BE6B"></i>
+                <i class="fa fa-picture-o b409EFF"></i>
                 <span>医学影像</span>
               </template>
               <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
@@ -62,7 +39,7 @@
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
-                <i class="fa fa-medkit b19BE6B"></i>
+                <i class="fa fa-medkit b409EFF"></i>
                 <span>检验</span>
               </template>
               <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
@@ -71,7 +48,7 @@
             </el-submenu>
             <el-submenu index="3">
               <template slot="title">
-                <i class="fa fa-pencil-square-o b19BE6B"></i>
+                <i class="fa fa-pencil-square-o b409EFF"></i>
                 <span>医嘱</span>
               </template>
               <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
@@ -82,22 +59,50 @@
         </el-aside>
         <!--主体-->
         <el-main style="background: #fff">
-          <transition name="fade" mode="out-in">
-            <router-view></router-view>
-          </transition>
+          <div class="baseInfo">
+            <div class="img">
+              <i class="fa fa-user"></i>
+              <img src="" alt="">
+            </div>
+            <div class="info">
+              <p>
+                <span>姓名:{{baseInfo.name}}</span>
+                <span>生日:{{baseInfo.birthday}}</span>
+                <span>性别:{{baseInfo.sexName}}</span>
+                <span>年龄:{{baseInfo.age}}</span>
+                <span>婚姻:{{baseInfo.marriageStateName}}</span>
+                <span>名族:{{baseInfo.nationName}}</span>
+              </p>
+              <p style="font-size: 12px;">
+                <span>医保类型:{{baseInfo.marriageStateName}}</span>
+                <span>身份证:{{baseInfo.idCard}}</span>
+                <span><i class="fa fa-phone-square"></i> 电话:{{baseInfo.phone}}</span>
+                <span><i class="fa fa-address-book"></i> 住址:{{baseInfo.addrProvince}}{{baseInfo.addrCity}}{{baseInfo.addrArea}}{{baseInfo.addrArea}}{{baseInfo.countryName}}</span>
+              </p>
+            </div>
+          </div>
+          <div class="timeAxis">
+            <timeAxis :list="empiList"></timeAxis>
+          </div>
+          <div style="padding-top: 10px;">
+            <transition name="fade" mode="out-in">
+              <router-view></router-view>
+            </transition>
+          </div>
+
         </el-main>
       </el-container>
     </el-container>
 
-    <div class="search_table" v-show="searchShow" >
+    <div class="search_table" v-show="searchShow">
       <el-form ref="form" label-width="80px" size="mini">
         <el-form-item label="关键字:" style="display: inline-block;margin-bottom:5px">
-          <el-input v-model="form.queryKeywords"  v-on:input="querytable" placeholder="姓名/住院号/门诊号/床位号"></el-input>
+          <el-input v-model="form.queryKeywords" v-on:input="querytable" placeholder="姓名/住院号/门诊号/床位号"></el-input>
         </el-form-item>
         <el-form-item label="就诊类型:" style="display: inline-block;;margin-bottom:5px">
           <el-checkbox-group v-model="form.visitTypes">
             <el-checkbox label="1">门诊</el-checkbox>
-            <el-checkbox label="2" >住院</el-checkbox>
+            <el-checkbox label="2">住院</el-checkbox>
             <el-checkbox label="3">急诊</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
@@ -143,7 +148,7 @@
           prop="inHospitalId"
           label="住院号"
           width="100">
-        </el-table-column>        
+        </el-table-column>
         <el-table-column
           prop="inDeptName"
           label="就诊科室"
@@ -172,8 +177,11 @@
         :current-page="page.pageNum"
         @current-change="currentChange">
       </el-pagination>
-      <el-button type="default" size="mini" style="position: absolute;bottom: 15px;right: 90px;" @click="searchShow = false">取消</el-button>
-      <el-button type="primary" size="mini" style="position: absolute;bottom: 15px;right: 10px;" @click="queryInfo">确认</el-button>
+      <el-button type="default" size="mini" style="position: absolute;bottom: 15px;right: 90px;"
+                 @click="searchShow = false">取消
+      </el-button>
+      <el-button type="primary" size="mini" style="position: absolute;bottom: 15px;right: 10px;" @click="queryInfo">确认
+      </el-button>
     </div>
   </div>
 </template>
@@ -226,7 +234,7 @@
           //   "addrDetail": null
           // }
         ],
-        baseInfo:{
+        baseInfo: {
           "updateTime": null,
           "createTime": null,
           "modifyBy": null,
@@ -261,7 +269,7 @@
           "addrArea": null,
           "addrDetail": null
         },
-        currentData:{},
+        currentData: {},
         page: {
           total: 100,
           pageNum: 1,
@@ -272,10 +280,10 @@
           queryKeywords: "",
           inHospitalStartTime: "",
           inHospitalEndTime: "",
-          visitTypes: ['1', '2','3']
+          visitTypes: ['1', '2', '3']
         },
         searchShow: false,
-        empiList:[]
+        empiList: []
       }
     },
     methods: {
@@ -294,7 +302,7 @@
           pageSize: 10,
           pages: ""
         };
-        if(this.form.queryKeywords=="") {
+        if (this.form.queryKeywords == "") {
           return;
         }
         this.axios({
@@ -318,7 +326,7 @@
           url: "/patient/query-patient-visit-by-page",
           data: {
             data: {
-              "empi" : this.currentData.empi
+              "empi": this.currentData.empi
             },
             page: {
               pageNum: 1,
@@ -383,8 +391,10 @@
     text-align: center;
     text-indent: 300px;
   }
-  .timeAxis{
-    border-bottom:1px solid #ccc
+
+  .timeAxis {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc
   }
 
   .el-input {
@@ -392,7 +402,7 @@
   }
 
   .area {
-    height: calc(100% - 260px);
+    height: calc(100% - 40px);
   }
 
   .el-aside {
@@ -406,7 +416,7 @@
   .baseInfo {
     height: 50px;
     /*margin-top: 40px;*/
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     background: #fff;
   }
 
@@ -455,7 +465,7 @@
   }
 
   .timeAxis {
-    height: 260px;
+    height: 280px;
     width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
@@ -463,8 +473,10 @@
     background: #fff;
   }
 
-  i.b19BE6B {
-    color: #19BE6B
+  i.b409EFF {
+    color: #409EFF
   }
-
+  .el-main{
+    padding: 5px;
+  }
 </style>

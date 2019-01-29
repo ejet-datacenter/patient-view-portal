@@ -59,7 +59,7 @@
   .box{
     width: 100%;
     overflow-x: auto;
-    height:280px;
+    height:275px;
     position: relative;
     padding-top: 5px;
   }
@@ -67,6 +67,7 @@
     height: 260px;
     width: 3300px;
     position: relative;
+    min-width: 100%;
   }
   .box ul li {
     float: left;
@@ -124,9 +125,9 @@
     text-overflow: ellipsis;
   }
   .box ul li .up{
-    height: 148px;
+    height: 125px;
     position: absolute;
-    top: -10;
+    top: -10px;
     width: 100%;
     padding-left: 15px;
     -webkit-box-sizing: border-box;
@@ -140,7 +141,7 @@
     content:"";
     height: 6px;
     width: 6px;
-    bottom: -5px;
+    bottom: -18px;
     margin-top: -3px;
     left: 5px;
     background: #f79782;
@@ -150,18 +151,18 @@
   .box ul li .up:after{
     position: absolute;
     content:"";
-    height: 145px;
+    height: 125px;
     width: 3px;
     left: 7px;
     background: #f79782;
     z-index: 9;
-    top: 0;
+    top: 10px;
   }
 
 
 
   .box ul li .down{
-    height: 148px;
+    height: 125px;
     position: absolute;
     padding-left: 15px;
     -webkit-box-sizing: border-box;
@@ -177,7 +178,7 @@
     content:"";
     height: 6px;
     width: 6px;
-    top: -2px;
+    top: -5px;
     margin-top: -3px;
     left: 5px;
     background: #f79782;
@@ -187,7 +188,7 @@
   .box ul li .down:after{
     position: absolute;
     content:"";
-    height: 145px;
+    height: 125px;
     width: 3px;
     left: 7px;
     top: 3px;
