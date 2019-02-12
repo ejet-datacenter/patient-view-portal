@@ -283,7 +283,7 @@
           visitTypes: ['1', '2', '3']
         },
         searchShow: false,
-        empiList: []
+        empiList: [{},{}]
       }
     },
     methods: {

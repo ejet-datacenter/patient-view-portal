@@ -75,6 +75,9 @@
     width: 200px;
     position: relative;
   }
+  .box ul li>div>div{
+    font-size: 14px;
+  }
   .box ul li:nth-child(1){
     width: 15px;
     font-size: 20px;
@@ -218,7 +221,7 @@
     height: 16px;
     line-height: 16px;
     color: #FF7F00;
-    bottom: 0px;
+    bottom: -40px;
   }
 
   .box ul li .down .time{
@@ -226,7 +229,7 @@
     height: 16px;
     line-height: 16px;
     color: #FF7F00;
-    top: 0px;
+    top: -30px;
   }
 
   .box ul li .down .code{
