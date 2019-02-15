@@ -7,19 +7,19 @@
       <li class="border bf79782" v-for="(item,key) in list" :class="key%2 == 0? 'bf79782':'b1b84cd'">
         <div class="up" v-if="key%2 == 0">
           <div class="time">{{item.inHospitalDate || ""}}</div>
-          <div class="code">就诊住院号:{{item.inHospitalId || ""}}</div>
-          <div>{{item.diagName || ""}}</div>
+          <div class="code">{{item.visitType || ""}}号:{{item.inHospitalId || ""}}</div>
+          <div>{{item.visitType || ""}}</div>
           <div>主治医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
-          <div>诊断名称：{{item.diagBasis || ""}}</div>
+          <div>诊断名称：{{item.diagName || ""}}</div>
         </div>
         <div class="down" v-else>
           <div class="time">{{item.inHospitalDate || ""}}</div>
-          <div>{{item.diagName || ""}}</div>
+          <div>{{item.visitType || ""}}</div>
           <div>主治医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
-          <div>诊断名称：{{item.diagBasis || ""}}</div>
-          <div class="code">就诊住院号:{{item.inHospitalId || ""}}</div>
+          <div>诊断名称：{{item.diagName || ""}}</div>
+          <div class="code">{{item.visitType || ""}}号:{{item.inHospitalId || ""}}</div>
         </div>
       </li>
     </ul>
