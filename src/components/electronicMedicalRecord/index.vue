@@ -1,6 +1,5 @@
 <template>
   <div>
-    <ruoter-view></ruoter-view>
   </div>
 </template>
 

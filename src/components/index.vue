@@ -18,43 +18,23 @@
       <el-container class="area">
         <!--菜单-->
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-          <el-menu>
-            <el-submenu index="0">
-              <template slot="title">
-                <i class="fa fa-file-text-o b409EFF"></i>
-                <span>电子病历</span>
-              </template>
-              <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">2</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">3</el-menu-item>
-            </el-submenu>
-            <el-submenu index="1">
-              <template slot="title">
-                <i class="fa fa-picture-o b409EFF"></i>
-                <span>医学影像</span>
-              </template>
-              <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">2</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">3</el-menu-item>
-            </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
-                <i class="fa fa-medkit b409EFF"></i>
-                <span>检验</span>
-              </template>
-              <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">2</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">3</el-menu-item>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
+          <el-menu :unique-opened="true" :router="true">
+            <el-menu-item index="0"  route="">
+              <i class="fa fa-file-text-o b409EFF"></i>
+              <span slot="title">电子病历</span>
+            </el-menu-item>
+            <el-menu-item index="1"  route="">
+              <i class="fa fa-picture-o  b409EFF"></i>
+              <span slot="title">医学影像</span>
+            </el-menu-item>
+            <el-menu-item index="2"  route="">
+              <i class="fa fa-medkit b409EFF"></i>
+              <span slot="title">检验</span>
+            </el-menu-item>
+            <el-menu-item index="3"  route="/doctorOrder">
                 <i class="fa fa-pencil-square-o b409EFF"></i>
-                <span>医嘱</span>
-              </template>
-              <el-menu-item index="" class="menu-padding-left" route="">1</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">2</el-menu-item>
-              <el-menu-item index="" class="menu-padding-left" route="">3</el-menu-item>
-            </el-submenu>
+                <span slot="title">医嘱</span>
+            </el-menu-item>
           </el-menu>
         </el-aside>
         <!--主体-->
@@ -188,11 +168,17 @@
 
 <script>
   import timeAxis from './component/timeAxis'
+  import {mapGetters } from 'vuex'
 
   export default {
     name: "index",
     components: {
       timeAxis
+    },
+    computed:{
+      ...mapGetters(
+        ['getjcCode','getzyCode']
+      )
     },
     data() {
       return {
@@ -283,15 +269,17 @@
           visitTypes: ['1', '2', '3']
         },
         searchShow: false,
-        empiList: [{},{}]
+        empiList: [{inHospitalId:"111"},{inHospitalId:"222"}]
       }
     },
     methods: {
       currentChange: function (val) {
         this.page.pageNum = val;
+        this.querytable();
       },
       tableCurrent: function (val) {
-        this.currentData = val
+        this.currentData = val;
+        this.querytable();
       },
       querytable: function () {
         let self = this;
