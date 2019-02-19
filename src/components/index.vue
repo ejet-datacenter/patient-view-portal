@@ -105,6 +105,8 @@
       <el-table
         highlight-current-row
         @current-change="tableCurrent"
+        @row-dblclick="queryInfo"
+
         :data="tableData"
         height="280px"
         element-loading-text="拼命加载中"
@@ -256,7 +258,7 @@
         },
         currentData: {},
         page: {
-          total: 100,
+          total: 0,
           pageNum: 1,
           pageSize: 10,
           pages: ""
@@ -299,7 +301,7 @@
         let self = this;
         self.tableData = [];
         self.page = {
-          total: 100,
+          total: 0,
           pageNum: 1,
           pageSize: 10,
           pages: ""
