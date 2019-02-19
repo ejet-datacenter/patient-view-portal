@@ -4,10 +4,10 @@
       <li>
         <i class="fa fa-volume-off"></i>
       </li>
-      <li class="border bf79782" v-for="(item,key) in list" :class="key%2 == 0? 'bf79782':'b1b84cd'">
+      <li class="border bf79782" v-for="(item,key) in list" :class="{bf79782:key%2 == 0,b1b84cd:key%2 == 1,sel:item.inHospitalId==getzyCode}" @click="timeSel(item)" >
         <div class="up" v-if="key%2 == 0">
           <div class="time">{{item.inHospitalDate || ""}}</div>
-          <div class="code">{{item.typeCode}}号:{{item.inHospitalId || ""}}</div>
+          <div class="code">{{item.visitType}}号:{{item.inHospitalId || ""}}</div>
           <div>{{item.diagName || ""}}</div>
           <div>主治医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
@@ -19,7 +19,7 @@
           <div>主治医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
           <div>诊断名称：{{item.diagBasis || ""}}</div>
-          <div class="code">就诊住院号:{{item.inHospitalId || ""}}</div>
+          <div class="code">{{item.visitType}}号:{{item.inHospitalId || ""}}</div>
         </div>
       </li>
     </ul>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+  import {mapGetters, mapMutations} from 'vuex'
   export default {
     name: "time-axis",
     data(){
@@ -43,6 +44,11 @@
       }
     },
     computed:{
+      ...mapGetters([
+        'getjcCode',
+        'getzyCode',
+        'gettypeCode'
+      ]),
       allWidth:function () {
         if(this.list){
           return {'width':200*(this.list.length+1) + 30 + 'px'}
@@ -51,11 +57,36 @@
         }
 
       }
+    },
+    created:function () {
+      if(this.list.length>0){
+        this.setjcCode(this.list[0].empi);
+        this.setzyCode(this.list[0].inHospitalId);
+        this.settypeCode(this.list[0].visitType);
+      }
+    },
+    methods:{
+      ...mapMutations([
+        'setjcCode',
+        'setzyCode',
+        'settypeCode'
+      ]),
+      timeSel: function (item) {
+        if(this.getzyCode != item.inHospitalId){
+          this.setjcCode(item.empi);
+          this.setzyCode(item.inHospitalId);
+          this.settypeCode(item.visitType);
+          this.$router.push('/doctorOrder');
+        }
+      }
     }
   }
 </script>
 
 <style scoped>
+  ul li.sel{
+    background: #f8f8f8;
+  }
   .box{
     width: 100%;
     overflow-x: auto;
@@ -83,9 +114,11 @@
     font-size: 20px;
     color:#999;
     line-height: 260px;
-    border:none
+    border:none;
+    z-index: 2;
   }
   .box ul:before {
+    z-index: 1;
     position: absolute;
     content:"";
     border-top: 3px dashed #ccc;
@@ -105,7 +138,7 @@
     left: 0;
     background: #f79782;
     border-radius:50%;
-    z-index: 0;
+    z-index: 3;
   }
   .box ul li.border:after{
     position: absolute;
@@ -116,7 +149,8 @@
     margin-top: -5px;
     left: 3px;
     background: #fff;
-    border-radius:50%
+    border-radius:50%;
+    z-index: 4;
   }
   .box ul li>div>div{
     white-space: nowrap;

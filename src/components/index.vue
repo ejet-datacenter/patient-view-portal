@@ -19,7 +19,7 @@
         <!--菜单-->
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
           <el-menu :unique-opened="true" :router="true">
-            <el-menu-item index="0"  route="">
+            <el-menu-item index=""  @click="openWin(0)">
               <i class="fa fa-file-text-o b409EFF"></i>
               <span slot="title">电子病历</span>
             </el-menu-item>
@@ -27,7 +27,7 @@
               <i class="fa fa-picture-o  b409EFF"></i>
               <span slot="title">医学影像</span>
             </el-menu-item>
-            <el-menu-item index="2"  route="">
+            <el-menu-item index="" @click="openWin(1)">
               <i class="fa fa-medkit b409EFF"></i>
               <span slot="title">检验</span>
             </el-menu-item>
@@ -107,7 +107,6 @@
         @current-change="tableCurrent"
         :data="tableData"
         height="280px"
-        @row-dblclick="queryInfo"
         element-loading-text="拼命加载中"
         border
         size="mini"
@@ -273,13 +272,28 @@
       }
     },
     methods: {
+      //新窗口
+      openWin: function (type) {
+        switch(type){
+          case 1:
+            //检验
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getzyCode)
+            break;
+          case 0:
+            //电子病历
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getjcCode)
+            break;
+          default:
+            break
+        }
+      },
       currentChange: function (val) {
         this.page.pageNum = val;
         this.querytable();
       },
       tableCurrent: function (val) {
         this.currentData = val;
-        this.querytable();
+        // this.querytable();
       },
       querytable: function () {
         let self = this;
