@@ -124,8 +124,7 @@
           pageNum: 1,
           pageSize: 10,
           pages: ""
-        };
-        this.getTableData();
+        };       
       },
       getTableData: function () {
         let self = this;
@@ -183,6 +182,7 @@
       btnType: {
         handler: function (val, oldVal) {
           this.params.ordersCategCode = this.ordersCategCode[val]
+          this.getTableData();
         }
       }
     }
