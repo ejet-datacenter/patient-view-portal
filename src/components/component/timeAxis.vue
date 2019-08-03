@@ -4,22 +4,22 @@
       <li>
         <i class="fa fa-volume-off"></i>
       </li>
-      <li class="border bf79782" v-for="(item,key) in list" :class="{bf79782:key%2 == 0,b1b84cd:key%2 == 1,sel:item.inHospitalId==getzyCode}" @click="timeSel(item)" >
+      <li class="border bf79782" v-for="(item,key) in list" :class="{bf79782:key%2 == 0,b1b84cd:key%2 == 1,sel:item.inHospitalId==getCodeInHospitalId}" @click="timeSel(item)" >
         <div class="up" v-if="key%2 == 0">
           <div class="time">{{item.inHospitalDate || ""}}</div>
-          <div class="code">{{item.visitType}}号:{{item.inHospitalId || ""}}</div>
+          <div class="code">{{item.visitTypeName}}号:{{item.inHospitalId || ""}}</div>
           <div>{{item.diagName || ""}}</div>
-          <div>主治医生：{{item.visitDoctorName || ""}}</div>
+          <div>诊断医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
           <div>诊断名称：{{item.diagBasis || ""}}</div>
         </div>
         <div class="down" v-else>
           <div class="time">{{item.inHospitalDate || ""}}</div>
           <div>{{item.diagName || ""}}</div>
-          <div>主治医生：{{item.visitDoctorName || ""}}</div>
+          <div>诊断医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
           <div>诊断名称：{{item.diagBasis || ""}}</div>
-          <div class="code">{{item.visitType}}号:{{item.inHospitalId || ""}}</div>
+          <div class="code">{{item.visitTypeName}}号:{{item.inHospitalId || ""}}</div>
         </div>
       </li>
     </ul>
@@ -45,9 +45,10 @@
     },
     computed:{
       ...mapGetters([
-        'getjcCode',
-        'getzyCode',
-        'gettypeCode'
+        'getCodeEmpi',
+        'getCodeVisitType',
+        'getCodePatientId',
+        'getCodeInHospitalId'
       ]),
       allWidth:function () {
         if(this.list){
@@ -60,22 +61,30 @@
     },
     created:function () {
       if(this.list.length>0){
-        this.setjcCode(this.list[0].empi);
-        this.setzyCode(this.list[0].inHospitalId);
-        this.settypeCode(this.list[0].visitType);
+
+        this.setCodeEmpi(this.list[0].empi);
+        this.setCodeVisitType(this.list[0].visitType);
+        this.setCodePatientId(this.list[0].patientId);
+        this.setCodeInHospitalId(this.list[0].inHospitalId);
+        this.setInHos
       }
     },
     methods:{
-      ...mapMutations([
-        'setjcCode',
-        'setzyCode',
-        'settypeCode'
+      ...mapMutations([     
+        'setCodeEmpi',
+        'setCodeVisitType',
+        'setCodePatientId',
+        'setCodeInHospitalId',
       ]),
       timeSel: function (item) {
-        if(this.getzyCode != item.inHospitalId){
-          this.setjcCode(item.empi);
-          this.setzyCode(item.inHospitalId);
-          this.settypeCode(item.visitType);
+        
+        if(this.getCodeInHospitalId != item.inHospitalId){
+
+          this.setCodeEmpi(item.empi);
+          this.setCodeVisitType(item.visitType);
+          this.setCodePatientId(item.patientId);
+          this.setCodeInHospitalId(item.inHospitalId);
+
           this.$router.push('/doctorOrder');
         }
       }

@@ -23,11 +23,11 @@
               <i class="fa fa-file-text-o b409EFF"></i>
               <span slot="title">电子病历</span>
             </el-menu-item>
-            <el-menu-item index="1"  route="">
+            <el-menu-item index=""  @click="openWin(1)">
               <i class="fa fa-picture-o  b409EFF"></i>
               <span slot="title">医学影像</span>
             </el-menu-item>
-            <el-menu-item index="" @click="openWin(1)">
+            <el-menu-item index="" @click="openWin(2)">
               <i class="fa fa-medkit b409EFF"></i>
               <span slot="title">检验</span>
             </el-menu-item>
@@ -57,7 +57,7 @@
                 <span>医保类型:{{baseInfo.marriageStateName}}</span>
                 <span>身份证:{{baseInfo.idCard}}</span>
                 <span><i class="fa fa-phone-square"></i> 电话:{{baseInfo.phone}}</span>
-                <span><i class="fa fa-address-book"></i> 住址:{{baseInfo.addrProvince}}{{baseInfo.addrCity}}{{baseInfo.addrArea}}{{baseInfo.addrArea}}{{baseInfo.countryName}}</span>
+                <span><i class="fa fa-address-book"></i> 住址:{{baseInfo.countryName}}{{baseInfo.addrProvince}}{{baseInfo.addrCity}}{{baseInfo.addrArea}}{{baseInfo.addrDetail}}</span>
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@
         </el-form-item>
         <el-form-item label="结束:" style="display: inline-block;;margin-bottom:5px">
           <el-date-picker
-            v-model="form.inHospitalStartTime"
+            v-model="form.inHospitalEndTime"
             type="date"
             placeholder="选择日期">
           </el-date-picker>
@@ -122,23 +122,23 @@
         <el-table-column
           prop="age"
           label="年龄"
-          width="50">
+          width="60">
         </el-table-column>
         <el-table-column
           fixed
           prop="inHospitalId"
           label="住院号"
-          width="100">
+          width="120">
         </el-table-column>
         <el-table-column
           prop="inDeptName"
           label="就诊科室"
-          width="100">
+          width="120">
         </el-table-column>
         <el-table-column
           prop="visitDoctorName"
-          label="主治医生"
-          width="100">
+          label="诊断医生"
+          width="120">
         </el-table-column>
         <el-table-column
           prop="inHospitalDate"
@@ -178,7 +178,10 @@
     },
     computed:{
       ...mapGetters(
-        ['getjcCode','getzyCode']
+        [ 'getCodeEmpi',
+        'getCodeVisitType',
+        'getCodePatientId',
+        'getCodeInHospitalId']
       )
     },
     data() {
@@ -270,7 +273,7 @@
           visitTypes: ['1', '2', '3']
         },
         searchShow: false,
-        empiList: [{inHospitalId:"111"},{inHospitalId:"222"}]
+        empiList: []
       }
     },
     methods: {
@@ -278,12 +281,16 @@
       openWin: function (type) {
         switch(type){
           case 1:
+            //医学影像
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
+            break;
+          case 2:
             //检验
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getzyCode)
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
             break;
           case 0:
             //电子病历
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getjcCode)
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
             break;
           default:
             break
@@ -311,7 +318,7 @@
         }
         this.axios({
           method: "POST",
-          url: "/patient/query-patient-by-page",
+          url: "/api/query-patient",
           data: {
             data: this.form,
             page: this.page
@@ -327,7 +334,7 @@
         let self = this;
         this.axios({
           method: "POST",
-          url: "/patient/query-patient-visit-by-page",
+          url: "/api/query-patient-visits",
           data: {
             data: {
               "empi": this.currentData.empi

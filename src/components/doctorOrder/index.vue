@@ -13,9 +13,9 @@
       :data="tableData"
       stripe
       size="mini"
-      style="width: 100%;margin-top: 10px;font-size: 14px;">
+      style="width: 99.9%; margin-top: 10px;font-size: 14px;">
       <el-table-column
-        prop="ordersBeginDate"
+        prop="ordersBeginDate.slice(0, 8)"
         label="日期"
         width="150"
         align="center">
@@ -101,9 +101,10 @@
           pages: ""
         },
         params: {
-          inhospNo: this.getzyCode,
-          visitType: this.gettypeCode,
-          empiID: this.getjcCode,
+          empi: this.getCodeEmpi,
+          patientId: this.getCodePatientId,
+          inHospitalId: this.getCodeInHospitalId,
+          visitType: this.getCodeVisitType,
           ordersCategCode: ""  //医嘱类别
         },
         ordersCategCode: ["", "长期医嘱", "临时医嘱", "麻醉医嘱", "药品医嘱", "项目医嘱"]
@@ -111,9 +112,10 @@
     },
     computed: {
       ...mapGetters([
-        'getjcCode',
-        'getzyCode',
-        'gettypeCode'
+        'getCodeEmpi',
+        'getCodeVisitType',
+        'getCodePatientId',
+        'getCodeInHospitalId'
       ]),
     },
     methods: {
@@ -130,7 +132,7 @@
         let self = this;
         this.axios({
           method: "POST",
-          url: "/patient/omorders-by-page/",
+          url: "/api/omorders-by-page/",
           data: {
             data: this.params,
             page: this.page
@@ -154,15 +156,16 @@
         pages: ""
       };
       this.params={
-        inhospNo: this.getzyCode,
-        visitType: this.gettypeCode,
-        empiID: this.getjcCode,
+        empi: this.getCodeEmpi,
+        inHospitalId: this.getCodeInHospitalId,
+        visitType: this.getCodeVisitType,
+        patientId : this.getCodePatientId,
         ordersCategCode: ""  //医嘱类别
       };
-      this.getTableData();
+      //this.getTableData();
     },
     watch: {
-      getzyCode: {
+      getCodeInHospitalId: {
         handler: function (val, oldVal) {
           this.page={
             total: 0,
@@ -171,9 +174,10 @@
             pages: ""
           };
           this.params={
-            inhospNo: this.getzyCode,
-            visitType: this.gettypeCode,
-            empiID: this.getjcCode,
+            empi: this.getCodeEmpi,
+            inHospitalId: this.getCodeInHospitalId,
+            visitType: this.getCodeVisitType,
+            patientId: this.getCodePatientId,
             ordersCategCode: ""  //医嘱类别
           };
           this.getTableData();

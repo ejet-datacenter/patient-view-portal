@@ -5,34 +5,41 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 
   state: {
-    //empi
-    jcCode: "",
-    //inHospitalId
-    zyCode: "",
-    //visitType
-    typeCode: ""
+    
+    codeEmpi: "",
+    codeVisitType: "",
+    codePatientId: "",
+    codeInHospitalId: ""
   },
   getters: {
-    getjcCode: function (state) {
-      return state.jcCode
+    /** 新增加 */
+    getCodeEmpi: function (state) {
+      return state.codeEmpi
     },
-    getzyCode: function (state) {
-      return state.zyCode
+    getCodeVisitType : function (state) {
+      return state.codeVisitType
     },
-    gettypeCode: function (state) {
-      return state.typeCode
+    getCodePatientId: function (state) {
+      return state.codePatientId
+    },
+    getCodeInHospitalId: function (state) {
+      return state.codeInHospitalId
     }
   },
   mutations: {
-    setjcCode: function (state, code) {
-      state.jcCode = code
+        /** 新增加 */
+    setCodeEmpi : function (state, code) {
+      state.codeEmpi = code
     },
-    setzyCode: function (state, code) {
-      state.zyCode = code
+    setCodeVisitType: function (state, code) {
+      state.codeVisitType = code
     },
-    settypeCode: function (state, code) {
-      state.typeCode = code
-    }
+    setCodePatientId : function (state, code) {
+      state.codePatientId = code
+    },
+    setCodeInHospitalId : function (state, code) {
+      state.codeInHospitalId = code
+    },
   }
 });
 
