@@ -19,6 +19,7 @@ Vue.use(VueAxios, axios)
 // axios.interceptors.response.use((response) => {
 //
 // })
-axios.defaults.baseURL = 'http://127.0.0.1:8099/pview/';
+//axios.defaults.baseURL = 'http://192.168.20.52:8299/pview/';
+axios.defaults.baseURL = 'http://127.0.0.1:8299/pview/';
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.withCredentials = true;

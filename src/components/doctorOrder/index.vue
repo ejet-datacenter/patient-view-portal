@@ -15,7 +15,7 @@
       size="mini"
       style="width: 99.9%; margin-top: 10px;font-size: 14px;">
       <el-table-column
-        prop="ordersBeginDate.slice(0, 8)"
+        prop="ordersBeginDate"
         label="日期"
         width="150"
         align="center">
@@ -32,7 +32,7 @@
         align="center">
       </el-table-column>
       <el-table-column
-        prop="ordersCategCode"
+        prop="ordersCategName"
         label="医嘱类型"
         width="80"
         align="center">
@@ -107,7 +107,7 @@
           visitType: this.getCodeVisitType,
           ordersCategCode: ""  //医嘱类别
         },
-        ordersCategCode: ["", "长期医嘱", "临时医嘱", "麻醉医嘱", "药品医嘱", "项目医嘱"]
+        ordersCategCode: ["", "CQYZ", "LSYZ", "MZYZ", "YPYZ", "XMYZ"]
       }
     },
     computed: {

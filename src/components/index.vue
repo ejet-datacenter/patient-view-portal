@@ -6,7 +6,7 @@
           <i class="el-icon-zoom-in" style="font-size: 24px;color:#fff;vertical-align: middle;"></i>
           <span style="font-size: 16px;color: #fff;">患者检索</span>
           <div v-on:click.prev.stop="searchShow=true" style="display: inline-block;">
-            <el-input v-model="form.queryKeywords" placeholder="姓名/住院号/门诊号/床位号" clearable size="small"
+            <el-input v-model="form.queryKeywords" placeholder="姓名/(住院、门诊)号/床位号" clearable size="small"
                       v-on:input="querytable"></el-input>
           </div>
         </div>
@@ -77,7 +77,7 @@
     <div class="search_table" v-show="searchShow">
       <el-form ref="form" label-width="80px" size="mini">
         <el-form-item label="关键字:" style="display: inline-block;margin-bottom:5px">
-          <el-input v-model="form.queryKeywords" v-on:input="querytable" placeholder="姓名/住院号/门诊号/床位号"></el-input>
+          <el-input v-model="form.queryKeywords" v-on:input="querytable" placeholder="姓名/(住院、门诊)号/床位号"></el-input>
         </el-form-item>
         <el-form-item label="就诊类型:" style="display: inline-block;;margin-bottom:5px">
           <el-checkbox-group v-model="form.visitTypes">
@@ -142,7 +142,7 @@
         </el-table-column>
         <el-table-column
           prop="inHospitalDate"
-          label="入院时间">
+          label="就诊时间">
         </el-table-column>
         <!-- <el-table-column
           prop="outHospitalDate"
@@ -263,7 +263,7 @@
         page: {
           total: 0,
           pageNum: 1,
-          pageSize: 10,
+          pageSize: 20,
           pages: ""
         },
         form: {
@@ -279,18 +279,25 @@
     methods: {
       //新窗口
       openWin: function (type) {
+        if(this.getCodeInHospitalId==null || this.getCodeInHospitalId=='') {
+            this.$message({
+              message: '请选择患者ID或者住院号!',
+              type: 'warning'
+            });
+            return;
+        }
         switch(type){
-          case 1:
+          case 1:            
             //医学影像
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
+            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getCodeInHospitalId)
             break;
           case 2:
             //检验
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=202&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
+            //window.open('#')
             break;
           case 0:
             //电子病历
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getCodeInHospitalId+'&empi='+this.getCodeEmpi)
+            window.open('http://192.168.20.25:8008/Index?moduleId=EMR&HideHeader=true&HideFooter=true&patientId='+this.getCodePatientId)
             break;
           default:
             break
@@ -308,9 +315,9 @@
         let self = this;
         self.tableData = [];
         self.page = {
-          total: 0,
-          pageNum: 1,
-          pageSize: 10,
+          total: this.page.total,
+          pageNum: this.page.pageNum,
+          pageSize: this.page.pageSize,
           pages: ""
         };
         if (this.form.queryKeywords == "") {
@@ -340,8 +347,8 @@
               "empi": this.currentData.empi
             },
             page: {
-              pageNum: 1,
-              pageSize: 100,
+              pageNum: this.page.pageNum,
+              pageSize: 20,
             }
           }
         }).then(function (res) {

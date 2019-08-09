@@ -8,17 +8,17 @@
         <div class="up" v-if="key%2 == 0">
           <div class="time">{{item.inHospitalDate || ""}}</div>
           <div class="code">{{item.visitTypeName}}号:{{item.inHospitalId || ""}}</div>
-          <div>{{item.diagName || ""}}</div>
+          <div>{{item.diagBasis || ""}}</div>
           <div>诊断医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
-          <div>诊断名称：{{item.diagBasis || ""}}</div>
+          <div>诊断名称：{{item.diagName || ""}}</div>
         </div>
         <div class="down" v-else>
           <div class="time">{{item.inHospitalDate || ""}}</div>
-          <div>{{item.diagName || ""}}</div>
+          <div>{{item.diagBasis || ""}}</div>
           <div>诊断医生：{{item.visitDoctorName || ""}}</div>
           <div>住院科室：{{item.inDeptName || ""}}</div>
-          <div>诊断名称：{{item.diagBasis || ""}}</div>
+          <div>诊断名称：{{item.diagName || ""}}</div>
           <div class="code">{{item.visitTypeName}}号:{{item.inHospitalId || ""}}</div>
         </div>
       </li>
