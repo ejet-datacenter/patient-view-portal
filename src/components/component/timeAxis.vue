@@ -48,6 +48,7 @@
         'getCodeEmpi',
         'getCodeVisitType',
         'getCodePatientId',
+        'getCodeInpatientId',
         'getCodeInHospitalId'
       ]),
       allWidth:function () {
@@ -65,6 +66,7 @@
         this.setCodeEmpi(this.list[0].empi);
         this.setCodeVisitType(this.list[0].visitType);
         this.setCodePatientId(this.list[0].patientId);
+        this.setCodeInpatientId(this.list[0].inpatientId);
         this.setCodeInHospitalId(this.list[0].inHospitalId);
         this.setInHos
       }
@@ -74,6 +76,7 @@
         'setCodeEmpi',
         'setCodeVisitType',
         'setCodePatientId',
+        'setCodeInpatientId',
         'setCodeInHospitalId',
       ]),
       timeSel: function (item) {
@@ -83,9 +86,9 @@
           this.setCodeEmpi(item.empi);
           this.setCodeVisitType(item.visitType);
           this.setCodePatientId(item.patientId);
+          this.setCodeInpatientId(item.inpatientId);
           this.setCodeInHospitalId(item.inHospitalId);
-
-          this.$router.push('/doctorOrder');
+          //this.$router.push('/doctorOrder');
         }
       }
     }

@@ -103,6 +103,7 @@
         params: {
           empi: this.getCodeEmpi,
           patientId: this.getCodePatientId,
+          inpatientId: this.getCodeInpatientId,
           inHospitalId: this.getCodeInHospitalId,
           visitType: this.getCodeVisitType,
           ordersCategCode: ""  //医嘱类别
@@ -115,6 +116,7 @@
         'getCodeEmpi',
         'getCodeVisitType',
         'getCodePatientId',
+        'getCodeInpatientId',
         'getCodeInHospitalId'
       ]),
     },
@@ -160,6 +162,7 @@
         inHospitalId: this.getCodeInHospitalId,
         visitType: this.getCodeVisitType,
         patientId : this.getCodePatientId,
+        inpatientId : this.getCodeInpatientId,
         ordersCategCode: ""  //医嘱类别
       };
       //this.getTableData();
@@ -178,6 +181,7 @@
             inHospitalId: this.getCodeInHospitalId,
             visitType: this.getCodeVisitType,
             patientId: this.getCodePatientId,
+            inpatientId: this.getCodeInpatientId,
             ordersCategCode: ""  //医嘱类别
           };
           this.getTableData();

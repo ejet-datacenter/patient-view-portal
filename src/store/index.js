@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     codeEmpi: "",
     codeVisitType: "",
     codePatientId: "",
+    codeInpatientId: "",
     codeInHospitalId: ""
   },
   getters: {
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
     },
     getCodePatientId: function (state) {
       return state.codePatientId
+    },
+    getCodeInpatientId: function (state) {
+      return state.codeInpatientId
     },
     getCodeInHospitalId: function (state) {
       return state.codeInHospitalId
@@ -36,6 +40,9 @@ const store = new Vuex.Store({
     },
     setCodePatientId : function (state, code) {
       state.codePatientId = code
+    },
+    setCodeInpatientId: function (state, code) {
+      state.codeInpatientId = code
     },
     setCodeInHospitalId : function (state, code) {
       state.codeInHospitalId = code

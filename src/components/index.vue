@@ -21,20 +21,20 @@
           <el-menu :unique-opened="true" :router="true">
             <el-menu-item index=""  @click="openWin(0)">
               <i class="fa fa-file-text-o b409EFF"></i>
-              <span slot="title">电子病历</span>
+              <span slot="title">病历全息图</span>
             </el-menu-item>
             <el-menu-item index=""  @click="openWin(1)">
               <i class="fa fa-picture-o  b409EFF"></i>
               <span slot="title">医学影像</span>
             </el-menu-item>
-            <el-menu-item index="" @click="openWin(2)">
+            <!-- <el-menu-item index="" @click="openWin(2)">
               <i class="fa fa-medkit b409EFF"></i>
               <span slot="title">检验</span>
             </el-menu-item>
             <el-menu-item index="3"  route="/doctorOrder">
                 <i class="fa fa-pencil-square-o b409EFF"></i>
                 <span slot="title">医嘱</span>
-            </el-menu-item>
+            </el-menu-item> -->
           </el-menu>
         </el-aside>
         <!--主体-->
@@ -89,14 +89,14 @@
         <el-form-item label="开始:" style="display: inline-block;;margin-bottom:5px">
           <el-date-picker
             v-model="form.inHospitalStartTime"
-            type="date"
+            type="date" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="结束:" style="display: inline-block;;margin-bottom:5px">
           <el-date-picker
             v-model="form.inHospitalEndTime"
-            type="date"
+            type="date" value-format="yyyy-MM-dd HH:mm:ss" format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
@@ -181,6 +181,7 @@
         [ 'getCodeEmpi',
         'getCodeVisitType',
         'getCodePatientId',
+        'getCodeInpatientId',
         'getCodeInHospitalId']
       )
     },
@@ -289,15 +290,20 @@
         switch(type){
           case 1:            
             //医学影像
-            window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getCodeInHospitalId)
+
+            var url = 'http://192.168.20.33:8081/ClinicList.aspx?colid0=219$colvalue0='+this.getCodeInHospitalId;
+            //console.log("openIE:" + url)
+            window.location.href = "openIE:" + url ;// 使用IE打开
+            //window.open('http://192.168.20.33:8081/ClinicList.aspx?colid0=219&colvalue0='+this.getCodeInHospitalId)
             break;
-          case 2:
-            //检验
-            //window.open('#')
-            break;
+          // case 2:
+          //   //检验
+          //   //window.open('#')
+          //   break;
           case 0:
-            //电子病历
-            window.open('http://192.168.20.25:8008/Index?moduleId=EMR&HideHeader=true&HideFooter=true&patientId='+this.getCodePatientId)
+            //病历全息图
+            //window.open('http://192.168.20.25:8003/Multis/Index?moduleId=EMR_IN&patientId='+this.getCodeInpatientId.toLowerCase() + '&visitCategory=inVisit&HideHeader=true&HideFooter=true&mode=getData')
+            window.open('http://192.168.20.25:8003/multis?patientId='+this.getCodeInpatientId.toLowerCase() + '&type=1')
             break;
           default:
             break
@@ -320,9 +326,9 @@
           pageSize: this.page.pageSize,
           pages: ""
         };
-        if (this.form.queryKeywords == "") {
-          return;
-        }
+        // if (this.form.queryKeywords == "") {
+        //   return;
+        // }
         this.axios({
           method: "POST",
           url: "/api/query-patient",

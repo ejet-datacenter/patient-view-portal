@@ -12,14 +12,14 @@ export default new Router({
       path: '/',
       name: 'index',
       component: () => import('@/components/index'),
-      redirect:"/doctorOrder",
+      //redirect:"/doctorOrder",
       children:[
         //医嘱
-        {
-          path: '/doctorOrder',
-          name: 'doctorOrder',
-          component: () => import('@/components/doctorOrder/index'),
-        },
+        // {
+        //   path: '/doctorOrder',
+        //   name: 'doctorOrder',
+        //   component: () => import('@/components/doctorOrder/index'),
+        // },
       ]
     },
 
